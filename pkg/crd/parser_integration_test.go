@@ -135,6 +135,8 @@ var _ = Describe("CRD Generation From Parsing to CustomResourceDefinition", func
 		groupKind := schema.GroupKind{Kind: "TestQuota", Group: "plural.example.com"}
 		parser.NeedCRDFor(groupKind, nil)
 
+		crd.FixTopLevelMetadata(parser.CustomResourceDefinitions[groupKind])
+
 		By("loading the desired YAML")
 		expectedFile, err := ioutil.ReadFile("plural.example.com_testquotas.yaml")
 		Expect(err).NotTo(HaveOccurred())

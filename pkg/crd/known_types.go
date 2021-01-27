@@ -120,8 +120,8 @@ var ObjectMetaPackages = map[string]PackageOverride{
 			Type: "object",
 		}
 		// now execute the KnowPackages for `k8s.io/apimachinery/pkg/apis/meta/v1` if any
-		if f,ok:=KnownPackages["k8s.io/apimachinery/pkg/apis/meta/v1"];ok{
-			f(p,pkg)
+		if f, ok := KnownPackages["k8s.io/apimachinery/pkg/apis/meta/v1"]; ok {
+			f(p, pkg)
 		}
 	},
 }

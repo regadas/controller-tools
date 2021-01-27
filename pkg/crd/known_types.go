@@ -112,6 +112,20 @@ var KnownPackages = map[string]PackageOverride{
 	},
 }
 
+// ObjectMetaPackages overrides the ObjectMeta in all types
+var ObjectMetaPackages = map[string]PackageOverride{
+	"k8s.io/apimachinery/pkg/apis/meta/v1": func(p *Parser, pkg *loader.Package) {
+		// FieldsV1 type should be object
+		p.Schemata[TypeIdent{Name: "ObjectMeta", Package: pkg}] = apiext.JSONSchemaProps{
+			Type: "object",
+		}
+		// now execute the KnowPackages for `k8s.io/apimachinery/pkg/apis/meta/v1` if any
+		if f,ok:=KnownPackages["k8s.io/apimachinery/pkg/apis/meta/v1"];ok{
+			f(p,pkg)
+		}
+	},
+}
+
 func boolPtr(b bool) *bool {
 	return &b
 }
@@ -123,5 +137,11 @@ func AddKnownTypes(parser *Parser) {
 	parser.init()
 	for pkgName, override := range KnownPackages {
 		parser.PackageOverrides[pkgName] = override
+	}
+	// if we don't want to generate the embedded ObjectMeta in the CRD we need to add the ObjectMetaPackages
+	if parser.GenerateEmbeddedObjectMeta == false {
+		for pkgName, override := range ObjectMetaPackages {
+			parser.PackageOverrides[pkgName] = override
+		}
 	}
 }

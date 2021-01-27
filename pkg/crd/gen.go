@@ -84,6 +84,9 @@ type Generator struct {
 	// You'll need to use "v1" to get support for features like defaulting,
 	// along with an API server that supports it (Kubernetes 1.16+).
 	CRDVersions []string `marker:"crdVersions,optional"`
+
+	// GenerateEmbeddedObjectMeta specifies if any embedded ObjectMeta in the CRD should be generated
+	GenerateEmbeddedObjectMeta *bool `marker:",optional"`
 }
 
 func (Generator) CheckFilter() loader.NodeFilter {
@@ -98,6 +101,8 @@ func (g Generator) Generate(ctx *genall.GenerationContext) error {
 		Checker:   ctx.Checker,
 		// Perform defaulting here to avoid ambiguity later
 		AllowDangerousTypes: g.AllowDangerousTypes != nil && *g.AllowDangerousTypes == true,
+		// Indicates the parser on whether to register the ObjectMeta type or not
+		GenerateEmbeddedObjectMeta: g.GenerateEmbeddedObjectMeta != nil && *g.GenerateEmbeddedObjectMeta == true,
 	}
 
 	AddKnownTypes(parser)
@@ -129,6 +134,7 @@ func (g Generator) Generate(ctx *genall.GenerationContext) error {
 		crdRaw := parser.CustomResourceDefinitions[groupKind]
 		addAttribution(&crdRaw)
 
+		// Prevent the top level metadata for the CRD to be generate regardless of the intention in the arguments
 		FixTopLevelMetadata(crdRaw)
 
 		versionedCRDs := make([]interface{}, len(crdVersions))

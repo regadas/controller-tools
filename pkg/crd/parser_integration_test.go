@@ -84,6 +84,7 @@ var _ = Describe("CRD Generation From Parsing to CustomResourceDefinition", func
 		groupKind := schema.GroupKind{Kind: "CronJob", Group: "testdata.kubebuilder.io"}
 		parser.NeedCRDFor(groupKind, nil)
 
+		By("fixing top level ObjectMeta on the CRD")
 		crd.FixTopLevelMetadata(parser.CustomResourceDefinitions[groupKind])
 
 		By("checking that no errors occurred along the way (expect for type errors)")
@@ -135,6 +136,7 @@ var _ = Describe("CRD Generation From Parsing to CustomResourceDefinition", func
 		groupKind := schema.GroupKind{Kind: "TestQuota", Group: "plural.example.com"}
 		parser.NeedCRDFor(groupKind, nil)
 
+		By("fixing top level ObjectMeta on the CRD")
 		crd.FixTopLevelMetadata(parser.CustomResourceDefinitions[groupKind])
 
 		By("loading the desired YAML")

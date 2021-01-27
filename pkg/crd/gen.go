@@ -232,7 +232,7 @@ func removeDefaultsFromSchemaProps(v *apiextlegacy.JSONSchemaProps) {
 	}
 }
 
-// FixTopLevelMetadata resets the schema for the top-level metadata field which is need for CRD validation
+// FixTopLevelMetadata resets the schema for the top-level metadata field which is needed for CRD validation
 func FixTopLevelMetadata(crd apiext.CustomResourceDefinition) {
 	for _, v := range crd.Spec.Versions {
 		if v.Schema != nil && v.Schema.OpenAPIV3Schema != nil && v.Schema.OpenAPIV3Schema.Properties != nil {

@@ -25,8 +25,8 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"sigs.k8s.io/controller-tools/pkg/genall"
-	. "sigs.k8s.io/controller-tools/pkg/schemapatcher"
+	"github.com/regadas/controller-tools/pkg/genall"
+	. "github.com/regadas/controller-tools/pkg/schemapatcher"
 )
 
 var _ = Describe("CRD Patching From Parsing to Editing", func() {

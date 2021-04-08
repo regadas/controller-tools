@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	"sigs.k8s.io/controller-tools/pkg/markers"
+	"github.com/regadas/controller-tools/pkg/markers"
 )
 
 var (

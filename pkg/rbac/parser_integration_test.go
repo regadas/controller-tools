@@ -12,10 +12,10 @@ import (
 
 	rbacv1 "k8s.io/api/rbac/v1"
 
-	"sigs.k8s.io/controller-tools/pkg/genall"
-	"sigs.k8s.io/controller-tools/pkg/loader"
-	"sigs.k8s.io/controller-tools/pkg/markers"
-	"sigs.k8s.io/controller-tools/pkg/rbac"
+	"github.com/regadas/controller-tools/pkg/genall"
+	"github.com/regadas/controller-tools/pkg/loader"
+	"github.com/regadas/controller-tools/pkg/markers"
+	"github.com/regadas/controller-tools/pkg/rbac"
 	"sigs.k8s.io/yaml"
 )
 
